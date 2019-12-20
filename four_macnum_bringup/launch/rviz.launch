@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="ns" default="/"/>
+  <arg if="$(eval arg('ns') == '/')" name="frame_prefix" value=""/>
+  <arg unless="$(eval arg('ns') == '/')" name="frame_prefix" value="$(arg ns)/"/>
+  <group ns="$(arg ns)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find four_macnum_bringup)/rviz.rviz -f $(arg frame_prefix)odom"/>
+  </group>
+</launch>

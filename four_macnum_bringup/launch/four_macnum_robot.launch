@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="ns" default="/"/>
+  <arg name="rviz" default="false"/>
+  <arg if="$(eval arg('ns') == '/')" name="frame_prefix" value=""/>
+  <arg unless="$(eval arg('ns') == '/')" name="frame_prefix" value="$(arg ns)/"/>
+  <group ns="$(arg ns)">
+    <param name="tf_prefix" value="$(arg ns)"/>
+    <node name="four_macnum_robot_node" pkg="four_macnum_bringup" type="four_macnum_robot.py" output="screen"/>
+
+    <node name="rplidar_node" pkg="rplidar_ros" type="rplidarNode" output="screen">
+      <param name="serial_port" value="/dev/rplidar"/>
+      <param name="frame_id" value="$(arg frame_prefix)lidar_link"/>
+    </node>
+
+    <param name="robot_description" command="$(find xacro)/xacro '$(find four_macnum_description)/urdf/four_macnum.urdf.xacro'"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+    <node if="$(arg rviz)" name="rviz" pkg="rviz" type="rviz" args="-d $(find four_macnum_bringup)/rviz.rviz -f $(arg frame_prefix)odom"/>
+  </group>
+</launch>
