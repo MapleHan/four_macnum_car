@@ -60,7 +60,7 @@ https://pan.baidu.com/play/video#/video?path=%2FROS%E8%A7%86%E9%A2%91%2F20191220
 ***在仿真内运行Navigation***  
 ```bash
   roslaunch four_macnum_simulation four_macnum_simulation.launch
-  roslaunch four_macnum_navigation four_macnum_navigation.launch
+  roslaunch four_macnum_navigation four_macnum_navigation.launch simulation:=true
   roslaunch four_macnum_bringup rviz.launch
   rosrun teleop_twist_keyboard teleop_twist_keyboard.py
 ```
