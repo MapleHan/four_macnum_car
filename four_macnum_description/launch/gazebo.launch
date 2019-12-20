@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="paused" default="false"/>
+  <arg name='ns' default='/'/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch" >
+    <arg name="paused" value="$(arg paused)"/>
+  </include>
+
+  <group ns='$(arg ns)'>
+    <param name='tf_prefix' value='$(arg ns)'/>
+    <param name="robot_description" command="$(find xacro)/xacro '$(find four_macnum_description)/urdf/four_macnum.urdf.xacro'"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" >
+      <param name='publish_frequency' type='double' value='50'/>
+    </node>
+    <node
+      name="spawn_model"
+      pkg="gazebo_ros"
+      type="spawn_model"
+      args="-urdf -param robot_description -model $(arg ns)four_macnum"
+      output="screen" />
+  </group>
+</launch>

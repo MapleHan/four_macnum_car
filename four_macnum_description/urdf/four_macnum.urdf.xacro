@@ -1,0 +1,233 @@
+<?xml version="1.0"?>
+<robot name="four_macnum" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:include filename="$(find four_macnum_description)/urdf/four_macnum.gazebo.xacro"/>
+  <!--xacro:include filename="$(find realsense2_description)/urdf/_d435.urdf.xacro" />
+  <xacro:include filename="$(find realsense2_description)/urdf/_d435.gazebo.xacro" /-->
+
+  <link name="base_footprint"/>
+  <joint name="base_joint" type="fixed">
+    <origin xyz="0 0 0.12" rpy="0 0 0"/>
+    <parent link="base_footprint"/>
+    <child link="base_link"/>
+  </joint>
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="6.0"/>
+      <inertia ixx="2.18e-02" ixy="0.0" ixz="0.0" iyy="4.68e-02" iyz="0.0" izz="6.5e-02" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.2 0.06"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.5 0.5 0.5 0.9"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.3 0.2 0.06"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!--sensor_d435 parent="base_link">
+    <origin xyz="0.165 0 0" rpy="0 0 0"/>
+  </sensor_d435>
+  <sensor_d435_gazebo frame_name='camera_depth_optical_frame'/-->
+
+  <link name="lidar_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="10" ixy="0.0" ixz="0.0" iyy="10" iyz="0.0" izz="10"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <mesh filename="package://four_macnum_description/meshes/lidara2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5707 0 0"/>
+      <geometry>
+        <mesh filename="package://four_macnum_description/meshes/lidara2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="lidar_joint" type="fixed">
+    <origin xyz="0.11 0 0.065" rpy="0 0 3.1416"/>
+    <parent link="base_link"/>
+    <child link="lidar_link"/>
+  </joint>
+
+  <link name='imu_link'/>
+  <joint name='imu_joint' type='fixed'>
+    <parent link='base_link'/>
+    <child link='imu_link'/>
+  </joint>
+
+  <link name="shell_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="10" ixy="0.0" ixz="0.0" iyy="10" iyz="0.0" izz="10"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://four_macnum_description/meshes/shell.dae"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.675 0.282 0.921 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://four_macnum_description/meshes/shell.dae"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="shell_joint" type="fixed">
+    <origin xyz="-0.13 0 -0.03" rpy="0 0 -1.5707"/>
+    <parent link="base_link"/>
+    <child link="shell_link"/>
+  </joint>
+
+
+  <link name="wheel1_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="10" ixy="0.0" ixz="0.0" iyy="10" iyz="0.0" izz="10"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wheel1_joint" type="fixed">
+    <origin xyz="0.1205 0.1425 -0.07" rpy="1.5707 0 0"/>
+    <parent link="base_link"/>
+    <child link="wheel1_link"/>
+  </joint>
+
+  <link name="wheel2_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="10" ixy="0.0" ixz="0.0" iyy="10" iyz="0.0" izz="10"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wheel2_joint" type="fixed">
+    <origin xyz="0.1205 -0.1425 -0.07" rpy="1.5707 0 0"/>
+    <parent link="base_link"/>
+    <child link="wheel2_link"/>
+  </joint>
+
+  <link name="wheel3_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="10" ixy="0.0" ixz="0.0" iyy="10" iyz="0.0" izz="10"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wheel3_joint" type="fixed">
+    <origin xyz="-0.1205 0.1425 -0.07" rpy="1.5707 0 0"/>
+    <parent link="base_link"/>
+    <child link="wheel3_link"/>
+  </joint>
+
+  <link name="wheel4_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <mass value="0.00001"/>
+      <inertia ixx="10" ixy="0.0" ixz="0.0" iyy="10" iyz="0.0" izz="10"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+      <material name="">
+        <color rgba="0.2 0.2 0.2 1"/>
+      </material>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.05"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="wheel4_joint" type="fixed">
+    <origin xyz="-0.1205 -0.1425 -0.07" rpy="1.5707 0 0"/>
+    <parent link="base_link"/>
+    <child link="wheel4_link"/>
+  </joint>
+</robot>
+
+
+
+
+
+
+
+
+
+
+
