@@ -11,4 +11,8 @@
 7. param name="xmax" value="5.0"：地图的X方向最大值，m   
 8. param name="ymax" value="5.0"：地图的Y方向最大值，m   
 9. param name="delta" value="0.05"：地图分辨率，米每像素    
-10. param name="minimumScore" value="50"    
+10. param name="minimumScore" value="50"     
+### 如果SLAM时不使用真实的雷达实时发布数据，而使用rosbag的历史数据，请在开启roscore之后立即在命令行设置"use_sim_time"参数:
+```bash
+rosparam set use_sim_time true
+```   
