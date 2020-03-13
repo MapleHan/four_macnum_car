@@ -9,7 +9,6 @@ project(four_macnum_bringup)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
   rospy
-  yz_motor_interface
 )
 
 ## System dependencies are found with CMake's conventions
